@@ -97,10 +97,10 @@ def run_quiz():
         
         # Check answer (case-insensitive)
         if user_ans.lower() == correct_answer.lower():
-            print("  ✓ Correct!")
+            print("  [CORRECT] Good job!")
             score += 1
         else:
-            print(f"  ✗ Incorrect. Correct answer: {correct_answer}")
+            print(f"  [INCORRECT] Correct answer: {correct_answer}")
             
     end_time = time.time()
     elapsed_seconds = end_time - start_time
@@ -116,7 +116,7 @@ def run_quiz():
     print(f" Time Taken: {round(elapsed_seconds, 1)} seconds")
     
     if pct == 100:
-        print(" Performance: Perfect score! Excellent work! 🎉")
+        print(" Performance: Perfect score! Excellent work!")
     elif pct >= 70:
         print(" Performance: Good job! Keep practicing!")
     else:
