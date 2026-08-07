@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What does ML stand for in Computer Science?",
+    "answer": "Machine Learning"
+  },
+  {
+    "question": "Which learning paradigm uses labeled training data to predict outcomes?",
+    "answer": "Supervised learning"
+  },
+  {
+    "question": "What is the process of adjusting neural network weights to minimize error called?",
+    "answer": "Training"
+  },
+  {
+    "question": "Which metric calculates the percentage of correct predictions out of all predictions?",
+    "answer": "Accuracy"
+  },
+  {
+    "question": "What is the dataset partition reserved exclusively for final model evaluation?",
+    "answer": "Test set"
+  }
+]
