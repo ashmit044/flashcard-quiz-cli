@@ -1,45 +1,83 @@
-# Flashcard Quiz CLI
+# 🪪 Flashcard Quiz CLI
 
-## About
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Interface-CLI-green?style=flat-square" alt="CLI" />
+  <img src="https://img.shields.io/badge/License-MIT-orange?style=flat-square" alt="License" />
+</p>
 
-Flashcard Quiz CLI is a simple command-line Python application designed to help students learn and review technical terms through interactive flashcards. Users can take randomized quizzes, track their percentage scores, and create custom flashcard decks stored in JSON files.
+An interactive command-line Python application designed to help Computer Science students learn and review AI, Machine Learning, and programming concepts through interactive flashcards and randomized quizzes.
 
-I created this project as a first-year B.Tech CSE (AI & ML) student to practice Python core concepts such as file input/output handling, dictionary storage, user input parsing, loops, and modular functions.
+---
 
-## Features
+## 🌟 Features
 
-- Interactive quiz mode with randomized question order
-- Custom flashcard creation saved as JSON files in sample_data/
-- Automatic score and percentage accuracy calculation
-- Local study history tracking to log quiz performance over time
-- Clean terminal user interface built using Python standard library
+- 🎯 **Interactive Quizzes**: Take randomized flashcard quizzes across multiple CS topics.
+- 📂 **Custom Decks**: Load JSON flashcard decks or create new custom question-answer cards directly in the CLI.
+- 📊 **Score & Performance Tracking**: Automatically calculates quiz accuracy percentages and keeps track of study history.
+- ⚙️ **Zero External Dependencies**: Built entirely using standard Python modules (`json`, `random`, `datetime`).
 
-## Installation
+---
 
-1. Clone this repository to your local machine:
-   git clone https://github.com/ashmi-cse/flashcard-quiz-cli.git
+## 📁 Decks Included
 
-2. Navigate into the project folder:
-   cd flashcard-quiz-cli
+Sample flashcard decks are stored in `sample_data/`:
+- `python_basics.json`: Fundamental Python concepts (lists, dictionaries, loops, functions).
+- `ai_ml_terms.json`: Essential AI/ML terms (Supervised Learning, Overfitting, Gradient Descent, Loss Function).
 
-3. Run the application (no third-party dependencies required):
-   python main.py
+---
 
-## Usage
+## 🚀 Getting Started
 
-Run the program with `python main.py`. An interactive terminal menu will give you the following options:
+### 1. Clone Repository
+```bash
+git clone https://github.com/ashmit044/flashcard-quiz-cli.git
+cd flashcard-quiz-cli
+```
 
-1. Take a Quiz - Select a flashcard deck (e.g. Python Basics or AI/ML Terms), set question limits, and answer prompts.
-2. Add New Flashcard - Add question and answer pairs to existing decks or create a new topic deck.
-3. View Study History & Stats - View a history of past quiz dates, topics, score percentages, and total quizzes completed.
-4. Exit - Exit the application.
+### 2. Run the Application
+No extra package installation required! Standard Python 3 is all you need:
+```bash
+python main.py
+```
 
-## Future Improvements
+---
 
-- Add multiple-choice answer modes alongside free-text input
-- Add a countdown timer for answering each flashcard question
-- Export study session records to a CSV report file
+## 💻 Menu Options
 
-## Author
+1. **Take a Quiz**: Select a deck, answer questions, and view your score percentage upon completion.
+2. **Add New Flashcard**: Add custom questions and answers to existing or new JSON decks.
+3. **View Study History & Stats**: Inspect your past quiz scores and overall performance history.
+4. **Exit**: Exit the program.
 
-ashmi-cse
+---
+
+## 🛠️ Project Structure
+
+```text
+flashcard-quiz-cli/
+├── main.py              # Interactive CLI menu and quiz logic
+├── utils.py             # File I/O helpers and score calculations
+├── requirements.txt     # Dependency definition
+├── sample_data/         # JSON flashcard deck files
+│   ├── ai_ml_terms.json
+│   └── python_basics.json
+├── .gitignore           # Git ignore file
+└── README.md            # Project documentation
+```
+
+---
+
+## 📚 What I Learned
+
+Building this project helped reinforce key Python fundamentals:
+- Reading and writing structured JSON data files with `json`.
+- Handling user input validation and exceptions with `try/except`.
+- Working with dictionaries, lists, and randomized sampling using `random`.
+- Formatting clean command-line text output.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License.
