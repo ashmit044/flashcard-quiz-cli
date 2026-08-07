@@ -1,0 +1,11 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# User stats & temporary history files
+quiz_history.json
+
+# IDE settings
+.vscode/
+.idea/

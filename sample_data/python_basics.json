@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What function is used to get input from the user in Python?",
+    "answer": "input"
+  },
+  {
+    "question": "Which data type is used to store ordered, mutable sequences of elements?",
+    "answer": "list"
+  },
+  {
+    "question": "What keyword is used to define a function in Python?",
+    "answer": "def"
+  },
+  {
+    "question": "What is the index of the first element in a Python list?",
+    "answer": "0"
+  },
+  {
+    "question": "Which standard library module is used for reading and writing JSON files?",
+    "answer": "json"
+  }
+]
