@@ -1,6 +1,7 @@
 import os
 import random
 import time
+from pathlib import Path
 from utils import (
     clear_screen,
     load_deck,
@@ -9,7 +10,8 @@ from utils import (
     display_history_stats
 )
 
-SAMPLE_DATA_DIR = "sample_data"
+BASE_DIR = Path(__file__).resolve().parent
+SAMPLE_DATA_DIR = BASE_DIR / "sample_data"
 
 def get_available_decks():
     """Returns a list of JSON deck filenames in the sample_data directory."""
@@ -25,7 +27,7 @@ def select_deck():
     decks = get_available_decks()
     
     if not decks:
-        print(f"No flashcard decks found in '{SAMPLE_DATA_DIR}/' folder.")
+        print("No flashcard decks found in the sample_data folder.")
         return None, None
         
     print("\n--- Available Flashcard Decks ---")
@@ -43,7 +45,7 @@ def select_deck():
         idx = int(choice) - 1
         if 0 <= idx < len(decks):
             selected_file = decks[idx]
-            filepath = os.path.join(SAMPLE_DATA_DIR, selected_file)
+            filepath = SAMPLE_DATA_DIR / selected_file
             topic_name = selected_file.replace(".json", "").replace("_", " ").title()
             return filepath, topic_name
         else:
@@ -149,7 +151,7 @@ def add_new_flashcard():
             print("Topic name cannot be empty.")
             return
         filename = raw_name.lower().replace(" ", "_") + ".json"
-        filepath = os.path.join(SAMPLE_DATA_DIR, filename)
+        filepath = SAMPLE_DATA_DIR / filename
         topic_name = raw_name.title()
         cards = []
     else:

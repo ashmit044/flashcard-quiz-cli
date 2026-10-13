@@ -2,6 +2,10 @@ import json
 import os
 import time
 from datetime import datetime
+from pathlib import Path
+
+
+DEFAULT_HISTORY_FILE = Path(__file__).resolve().parent / "quiz_history.json"
 
 # Helper function to clear terminal screen
 def clear_screen():
@@ -46,7 +50,7 @@ def save_deck(filepath, cards):
         return False
 
 # Load history log of past quiz attempts
-def load_quiz_history(history_file="quiz_history.json"):
+def load_quiz_history(history_file=DEFAULT_HISTORY_FILE):
     if not os.path.exists(history_file):
         return []
     try:
@@ -56,7 +60,7 @@ def load_quiz_history(history_file="quiz_history.json"):
         return []
 
 # Save a completed quiz session to history
-def save_quiz_result(topic_name, score, total_questions, duration_seconds, history_file="quiz_history.json"):
+def save_quiz_result(topic_name, score, total_questions, duration_seconds, history_file=DEFAULT_HISTORY_FILE):
     history = load_quiz_history(history_file)
     
     # Calculate percentage accuracy
@@ -81,7 +85,7 @@ def save_quiz_result(topic_name, score, total_questions, duration_seconds, histo
         print(f"Failed to save quiz history: {e}")
 
 # Display past study session statistics
-def display_history_stats(history_file="quiz_history.json"):
+def display_history_stats(history_file=DEFAULT_HISTORY_FILE):
     history = load_quiz_history(history_file)
     
     if not history:
