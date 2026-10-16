@@ -1,11 +1,20 @@
 import json
 import os
+import re
 import time
 from datetime import datetime
 from pathlib import Path
 
 
 DEFAULT_HISTORY_FILE = Path(__file__).resolve().parent / "quiz_history.json"
+
+
+def deck_filename(topic_name):
+    """Create a safe, portable JSON filename from a user-provided topic."""
+    slug = re.sub(r"[^a-z0-9_-]+", "_", topic_name.lower()).strip("_-")
+    if not slug:
+        raise ValueError("Topic name must contain letters or numbers.")
+    return f"{slug}.json"
 
 # Helper function to clear terminal screen
 def clear_screen():

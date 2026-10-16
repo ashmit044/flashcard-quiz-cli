@@ -7,7 +7,8 @@ from utils import (
     load_deck,
     save_deck,
     save_quiz_result,
-    display_history_stats
+    display_history_stats,
+    deck_filename,
 )
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -150,7 +151,11 @@ def add_new_flashcard():
         if not raw_name:
             print("Topic name cannot be empty.")
             return
-        filename = raw_name.lower().replace(" ", "_") + ".json"
+        try:
+            filename = deck_filename(raw_name)
+        except ValueError as error:
+            print(error)
+            return
         filepath = SAMPLE_DATA_DIR / filename
         topic_name = raw_name.title()
         cards = []
