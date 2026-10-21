@@ -1,6 +1,8 @@
+import json
+
 import pytest
 
-from utils import deck_filename, load_quiz_history, save_quiz_result
+from utils import deck_filename, load_deck, load_quiz_history, save_quiz_result
 
 
 def test_deck_filename_cannot_escape_deck_directory():
@@ -23,3 +25,22 @@ def test_quiz_history_round_trip_uses_requested_path(tmp_path):
     assert history[0]["topic"] == "Python Basics"
     assert history[0]["score"] == "4/5"
     assert history[0]["accuracy_percent"] == 80.0
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"question": "What is Python?", "answer": "A language."},
+        [None],
+        [{"question": "What is Python?"}],
+        [{"question": "What is Python?", "answer": 42}],
+        [{"question": "  ", "answer": "A language."}],
+        [{"question": "What is Python?", "answer": "  "}],
+    ],
+)
+def test_load_deck_rejects_invalid_json_structure(tmp_path, capsys, payload):
+    deck_file = tmp_path / "invalid_deck.json"
+    deck_file.write_text(json.dumps(payload), encoding="utf-8")
+
+    assert load_deck(deck_file) == []
+    assert "Error:" in capsys.readouterr().out

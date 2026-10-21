@@ -32,13 +32,32 @@ def load_deck(filepath):
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             cards = json.load(f)
-            return cards
     except json.JSONDecodeError:
         print(f"Error: Failed to parse JSON file {filepath}. It might be corrupted.")
         return []
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         return []
+
+    if not isinstance(cards, list):
+        print(f"Error: Flashcard deck {filepath} must contain a JSON list.")
+        return []
+
+    for index, card in enumerate(cards, start=1):
+        if (
+            not isinstance(card, dict)
+            or not isinstance(card.get("question"), str)
+            or not card["question"].strip()
+            or not isinstance(card.get("answer"), str)
+            or not card["answer"].strip()
+        ):
+            print(
+                f"Error: Card {index} in {filepath} must have non-empty string "
+                "'question' and 'answer' fields."
+            )
+            return []
+
+    return cards
 
 # Save flashcards to a JSON file
 def save_deck(filepath, cards):
