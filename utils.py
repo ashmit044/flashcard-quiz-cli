@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import re
 import time
@@ -15,6 +16,15 @@ def deck_filename(topic_name):
     if not slug:
         raise ValueError("Topic name must contain letters or numbers.")
     return f"{slug}.json"
+
+
+def _is_finite_number(value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return False
+    try:
+        return math.isfinite(value)
+    except OverflowError:
+        return False
 
 # Helper function to clear terminal screen
 def clear_screen():
@@ -83,13 +93,40 @@ def load_quiz_history(history_file=DEFAULT_HISTORY_FILE):
         return []
     try:
         with open(history_file, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception:
-        return []
+            history = json.load(f)
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
+        raise ValueError(f"Could not read quiz history: {error}") from error
+
+    if not isinstance(history, list):
+        raise ValueError("Quiz history must contain a JSON list of session records.")
+
+    for index, entry in enumerate(history, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"Quiz history record {index} must be a JSON object.")
+        if (
+            not isinstance(entry.get("date"), str)
+            or not isinstance(entry.get("topic"), str)
+            or not isinstance(entry.get("score"), str)
+        ):
+            raise ValueError(f"Quiz history record {index} has invalid text fields.")
+        accuracy = entry.get("accuracy_percent")
+        duration = entry.get("time_seconds")
+        if (
+            not _is_finite_number(accuracy)
+            or not 0 <= accuracy <= 100
+            or not _is_finite_number(duration)
+            or duration < 0
+        ):
+            raise ValueError(f"Quiz history record {index} has invalid numeric fields.")
+    return history
 
 # Save a completed quiz session to history
 def save_quiz_result(topic_name, score, total_questions, duration_seconds, history_file=DEFAULT_HISTORY_FILE):
-    history = load_quiz_history(history_file)
+    try:
+        history = load_quiz_history(history_file)
+    except ValueError as error:
+        print(f"Failed to load quiz history; existing file was left unchanged: {error}")
+        return False
     
     # Calculate percentage accuracy
     accuracy = round((score / total_questions) * 100, 1) if total_questions > 0 else 0
@@ -109,12 +146,18 @@ def save_quiz_result(topic_name, score, total_questions, duration_seconds, histo
         with open(history_file, 'w', encoding='utf-8') as f:
             json.dump(history, f, indent=2)
         print("Quiz result saved to history!")
+        return True
     except Exception as e:
         print(f"Failed to save quiz history: {e}")
+        return False
 
 # Display past study session statistics
 def display_history_stats(history_file=DEFAULT_HISTORY_FILE):
-    history = load_quiz_history(history_file)
+    try:
+        history = load_quiz_history(history_file)
+    except ValueError as error:
+        print(f"Could not display quiz history: {error}")
+        return
     
     if not history:
         print("\n--- No Quiz History Found ---")
