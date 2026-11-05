@@ -33,6 +33,13 @@ def test_quiz_history_round_trip_uses_requested_path(tmp_path):
     assert history[0]["accuracy_percent"] == 80.0
 
 
+def test_quiz_history_creates_missing_parent_directories(tmp_path):
+    history_file = tmp_path / "nested" / "study" / "history.json"
+
+    assert save_quiz_result("Python Basics", 1, 1, 3.2, history_file)
+    assert load_quiz_history(history_file)[0]["score"] == "1/1"
+
+
 @pytest.mark.parametrize(
     "payload",
     [

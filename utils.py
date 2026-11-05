@@ -143,6 +143,7 @@ def save_quiz_result(topic_name, score, total_questions, duration_seconds, histo
     history.append(record)
     
     try:
+        Path(history_file).parent.mkdir(parents=True, exist_ok=True)
         with open(history_file, 'w', encoding='utf-8') as f:
             json.dump(history, f, indent=2)
         print("Quiz result saved to history!")
